@@ -4,12 +4,14 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class Receipt {
+    public static final double TAX_VAL = 0.1;
+    public static final int NEW_SCALE = 2;
 
     private BigDecimal tax;
 
     public Receipt() {
-        tax = new BigDecimal(0.1);
-        tax = tax.setScale(2, BigDecimal.ROUND_HALF_UP);
+        tax = new BigDecimal(TAX_VAL);
+        tax = tax.setScale(NEW_SCALE, BigDecimal.ROUND_HALF_UP);
     }
 
     public double CalculateGrandTotal(List<Product> products, List<OrderItem> items) {
