@@ -5,6 +5,14 @@ import java.util.List;
 
 public class PriceCaculator {
 
+    public BigDecimal calculate(List<OrderLineItem> orderLineItemList, List<BigDecimal> discounts, BigDecimal tax) {
+
+        BigDecimal subTotal = new BigDecimal(0);
+        subTotal = subtractDiscounts(totalUpLineItems(subTotal, orderLineItemList),discounts);
+        BigDecimal tax1 = calculateTax(subTotal, tax);
+        return calculateGrandTotal(subTotal, tax1);
+    }
+
     public BigDecimal totalUpLineItems(BigDecimal subtotal, List<OrderLineItem> orderLineItemList) {
         for (OrderLineItem lineItem : orderLineItemList) {
             subtotal = subtotal.add(lineItem.getPrice());

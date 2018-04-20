@@ -18,20 +18,6 @@ public class Order {
 
     public BigDecimal calculate() {
         PriceCaculator priceCaculator = new PriceCaculator();
-
-        BigDecimal subTotal = new BigDecimal(0);
-
-        // Total up line items
-        subTotal = priceCaculator.totalUpLineItems(subTotal, orderLineItemList);
-
-        // Subtract discounts
-        subTotal = priceCaculator.subtractDiscounts(subTotal, discounts);
-
-        // calculate tax
-        BigDecimal tax = priceCaculator.calculateTax(subTotal,this.tax);
-
-        // calculate GrandTotal
-        BigDecimal grandTotal = priceCaculator.calculateGrandTotal(subTotal, tax);
-        return grandTotal;
+        return priceCaculator.calculate(orderLineItemList,discounts,tax);
     }
 }
