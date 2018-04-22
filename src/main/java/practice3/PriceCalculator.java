@@ -3,7 +3,7 @@ package practice3;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class PriceCaculator {
+public class PriceCalculator {
 
     public BigDecimal calculate(List<OrderLineItem> orderLineItemList, List<BigDecimal> discounts, BigDecimal tax) {
 

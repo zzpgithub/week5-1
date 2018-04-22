@@ -10,16 +10,10 @@ public class Security {
         this.securityChecker = checker;
     }
 
-    public boolean hasAccess(User user, Permission permission, ImmutableList<Permission> permissions) {
+    public boolean hasAccess(User user, Permission permission,
+        ImmutableList<Permission> permissions) {
 
-        if (user == null || permission == null || permissions.size() == 0) {
-            return false;
-        }
-
-        if (securityChecker.isAdmin() || this.securityChecker.checkPermission(user, permission) || permissions.contains(permission)) {
-            return true;
-        }
-
-        return false;
+        return securityChecker.isAdmin() || (this.securityChecker.checkPermission(user, permission)
+            || permissions.contains(permission)) ? true : false;
     }
 }
