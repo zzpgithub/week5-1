@@ -6,6 +6,10 @@ import java.util.List;
 public class Order {
     public static final double TAX_VAL = 0.1;
 
+    private List<OrderLineItem> orderLineItemList;
+    private List<BigDecimal> discounts;
+    private BigDecimal tax;
+
     public List<OrderLineItem> getOrderLineItemList() {
         return orderLineItemList;
     }
@@ -17,10 +21,6 @@ public class Order {
     public BigDecimal getTax() {
         return tax;
     }
-
-    private List<OrderLineItem> orderLineItemList;
-    private List<BigDecimal> discounts;
-    private BigDecimal tax;
 
     public Order(List<OrderLineItem> orderLineItemList, List<BigDecimal> discounts) {
         this.orderLineItemList = orderLineItemList;

@@ -14,20 +14,15 @@ public class PriceCalculator {
     }
 
     public BigDecimal calculate() {
-        subTotal = totalUpLineItems();
-        subTotal = subtractDiscounts();
+        subTotal = calculateSubTotal();
         BigDecimal tax = subTotal.multiply(order.getTax());
         return subTotal.add(tax);
     }
 
-    public BigDecimal totalUpLineItems() {
+    public BigDecimal calculateSubTotal() {
         for (OrderLineItem lineItem : order.getOrderLineItemList()) {
             subTotal = subTotal.add(lineItem.getPrice());
         }
-        return subTotal;
-    }
-
-    public BigDecimal subtractDiscounts() {
         for (BigDecimal discount : order.getDiscounts()) {
             subTotal = subTotal.subtract(discount);
         }
