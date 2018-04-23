@@ -6,6 +6,18 @@ import java.util.List;
 public class Order {
     public static final double TAX_VAL = 0.1;
 
+    public List<OrderLineItem> getOrderLineItemList() {
+        return orderLineItemList;
+    }
+
+    public List<BigDecimal> getDiscounts() {
+        return discounts;
+    }
+
+    public BigDecimal getTax() {
+        return tax;
+    }
+
     private List<OrderLineItem> orderLineItemList;
     private List<BigDecimal> discounts;
     private BigDecimal tax;
@@ -17,7 +29,6 @@ public class Order {
     }
 
     public BigDecimal calculate() {
-        PriceCalculator priceCaculator = new PriceCalculator();
-        return priceCaculator.calculate(orderLineItemList,discounts,tax);
+        return new PriceCalculator(this).calculate();
     }
 }

@@ -1,37 +1,36 @@
 package practice3;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public class PriceCalculator {
 
-    public BigDecimal calculate(List<OrderLineItem> orderLineItemList, List<BigDecimal> discounts, BigDecimal tax) {
+    public static final int DEFAULT_VAL = 0;
 
-        BigDecimal subTotal = new BigDecimal(0);
-        subTotal = subtractDiscounts(totalUpLineItems(subTotal, orderLineItemList),discounts);
-        BigDecimal tax1 = calculateTax(subTotal, tax);
-        return calculateGrandTotal(subTotal, tax1);
+    private BigDecimal subTotal;
+    private Order order;
+    public PriceCalculator(Order order) {
+        this.order = order;
+        subTotal  = new BigDecimal(DEFAULT_VAL);
     }
 
-    public BigDecimal totalUpLineItems(BigDecimal subtotal, List<OrderLineItem> orderLineItemList) {
-        for (OrderLineItem lineItem : orderLineItemList) {
-            subtotal = subtotal.add(lineItem.getPrice());
+    public BigDecimal calculate() {
+        subTotal = totalUpLineItems();
+        subTotal = subtractDiscounts();
+        BigDecimal tax = subTotal.multiply(order.getTax());
+        return subTotal.add(tax);
+    }
+
+    public BigDecimal totalUpLineItems() {
+        for (OrderLineItem lineItem : order.getOrderLineItemList()) {
+            subTotal = subTotal.add(lineItem.getPrice());
         }
-        return subtotal;
+        return subTotal;
     }
 
-    public BigDecimal subtractDiscounts(BigDecimal subtotal, List<BigDecimal> discounts) {
-        for (BigDecimal discount : discounts) {
-            subtotal = subtotal.subtract(discount);
+    public BigDecimal subtractDiscounts() {
+        for (BigDecimal discount : order.getDiscounts()) {
+            subTotal = subTotal.subtract(discount);
         }
-        return subtotal;
-    }
-
-    public BigDecimal calculateTax(BigDecimal subtotal, BigDecimal tax) {
-        return subtotal.multiply(tax);
-    }
-
-    public BigDecimal calculateGrandTotal(BigDecimal subtotal, BigDecimal tax) {
-        return subtotal.add(tax);
+        return subTotal;
     }
 }

@@ -16,13 +16,8 @@ public class Receipt {
 
     public double CalculateGrandTotal(List<Product> products, List<OrderItem> items) {
         BigDecimal subTotal = calculateSubtotal(products, items);
-        BigDecimal taxTotal = calculateTaxTotal(subTotal);
-        BigDecimal grandTotal = subTotal.add(taxTotal);
+        BigDecimal grandTotal = subTotal.add(subTotal.multiply(tax));
         return grandTotal.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-    }
-
-    private BigDecimal calculateTaxTotal(BigDecimal subtotal) {
-        return subtotal.multiply(tax);
     }
 
     private BigDecimal calculateSubtotal(List<Product> products, List<OrderItem> items) {
